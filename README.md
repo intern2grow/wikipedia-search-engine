@@ -5,3 +5,5 @@ hello there, your task is to use debounce technique with the search input on the
 fork the repository and start working on it.
 
 best of luck.
+
+#this function waits 500 milliseconds of inactivity before executing the validateInput
