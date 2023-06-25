@@ -1,13 +1,22 @@
 let resultsContainer = document.getElementsByClassName("container")[0];
-
+// update the validateInput function to use the debounced version of generateResults
 const validateInput = (el) => {
   if (el.value === "") {
     resultsContainer.innerHTML =
       "<p>Type something in the above search input</p>";
   } else {
-    generateResults(el.value, el);
+    debouncedGenerateResults(el.value, el);
   }
 };
+
+// define a simple debounce function
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
 
 const generateResults = (searchValue, inputField) => {
   fetch(
@@ -37,3 +46,6 @@ const generateResults = (searchValue, inputField) => {
       }
     });
 };
+
+// create a debounced version of the generateResults function
+const debouncedGenerateResults = debounce(generateResults, 300);
