@@ -3,8 +3,11 @@ let resultsContainer = document.getElementsByClassName("container")[0]
 const validateInput = (el) => {
     if(el.value === ""){
         resultsContainer.innerHTML = "<p>Type something in the above search input</p>"
-    }else{
-        generateResults(el.value, el)
+    }else {
+        clearTimeout(debounceTimeout); 
+        debounceTimeout = setTimeout(() => {
+            generateResults(el.value, el);
+        }, 300); 
     }
 }
 
