@@ -6,6 +6,7 @@ const validateInput = (el) => {
           resultsContainer.innerHTML =
                "<p>Type something in the above search input</p>";
      } else {
+          resultsContainer.innerHTML = "<p>fetching data please wait ....</p>";
           clearTimeout(debounce);
           debounce = setTimeout(() => {
                generateResults(el.value, el);
@@ -22,6 +23,11 @@ const generateResults = (searchValue, inputField) => {
           .then((response) => response.json())
           .then((data) => {
                let results = data.query.search;
+               if (results.length === 0) {
+                    resultsContainer.innerHTML =
+                         "<p>No Matching Data!</p> <p>try another thing </p>";
+                    return;
+               }
                let numberOfResults = data.query.search.length;
                resultsContainer.innerHTML = "";
                for (let i = 0; i < numberOfResults; i++) {
